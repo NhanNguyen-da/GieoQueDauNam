@@ -54,7 +54,7 @@ import { FortuneService, Category } from '../services/fortune.service';
           </div>
           
           <span class="relative z-10 text-xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-blue-100 group-hover:text-white transition-colors">
-            Công Việc
+            Tài Lộc
           </span>
         </button>
 
