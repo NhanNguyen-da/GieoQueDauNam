@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(npx ng config:*)",
+      "Bash(npx ng serve:*)",
+      "Bash(npx kill-port:*)"
+    ]
+  }
+}

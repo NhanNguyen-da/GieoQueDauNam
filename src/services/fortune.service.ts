@@ -14,11 +14,45 @@ export class FortuneService {
   selectedCategory = signal<Category | null>(null);
   currentFortune = signal<Fortune | null>(null);
 
+  // Background music
+  private bgAudio: HTMLAudioElement | null = null;
+  private audioFiles = [
+    'assets/cutcut.mp3',
+    'assets/cutmtp.mp3',
+    'assets/linhcut.mp3',
+    'assets/trucnhan.mp3',
+  ];
+
   constructor() {
     // Load saved name
     const savedName = localStorage.getItem('fortune_userName');
     if (savedName) {
       this.userName.set(savedName);
+    }
+  }
+
+  playBackgroundMusic() {
+    // Stop any existing music first
+    this.stopBackgroundMusic();
+
+    const randomIndex = Math.floor(Math.random() * this.audioFiles.length);
+    const src = this.audioFiles[randomIndex];
+    this.bgAudio = new Audio(src);
+    this.bgAudio.loop = true;
+    this.bgAudio.volume = 0.5;
+    this.bgAudio.addEventListener('error', () => {
+      console.error('Failed to load audio:', src);
+    });
+    this.bgAudio.play().catch((err) => {
+      console.warn('Background music autoplay blocked:', err.message);
+    });
+  }
+
+  stopBackgroundMusic() {
+    if (this.bgAudio) {
+      this.bgAudio.pause();
+      this.bgAudio.currentTime = 0;
+      this.bgAudio = null;
     }
   }
 
@@ -60,6 +94,7 @@ export class FortuneService {
   }
   
   goHome() {
+    this.stopBackgroundMusic();
     this.currentScreen.set('welcome');
     this.currentFortune.set(null);
     this.selectedCategory.set(null);

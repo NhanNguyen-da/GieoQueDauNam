@@ -50,7 +50,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">Đức</div>
+                <div class="cup-label">Vạn</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             
@@ -58,7 +58,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">Lộc</div>
+                <div class="cup-label">Sự</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             
@@ -66,7 +66,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">Phúc</div>
+                <div class="cup-label">Như</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             
@@ -74,7 +74,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">Thọ</div>
+                <div class="cup-label">Ý</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             
@@ -82,7 +82,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">An</div>
+                <div class="cup-label">Bình</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             
@@ -90,7 +90,7 @@ import { FortuneService } from '../services/fortune.service';
             <div class="cup-face">
                 <div class="cup-face-pattern"></div>
                 <div class="cup-decoration">⚜️</div>
-                <div class="cup-label">Tài</div>
+                <div class="cup-label">An</div>
                 <div class="cup-decoration mt-2">⚜️</div>
             </div> 
             

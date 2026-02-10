@@ -28,13 +28,20 @@ import { FortuneService } from '../services/fortune.service';
       <div class="w-full max-w-sm md:max-w-md glass-panel p-6 md:p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 shadow-2xl z-10">
         <div class="mb-6">
           <label class="block text-yellow-300 text-lg mb-2 font-bold">Quý danh của bạn:</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             [(ngModel)]="inputName"
             (keyup.enter)="start()"
-            placeholder="Nhập tên của bạn..." 
-            class="w-full px-4 py-3 rounded-lg bg-red-950 border-2 border-yellow-600 text-yellow-100 placeholder-red-300 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-500/50 transition-all text-center text-xl"
+            (focus)="onFocus()"
+            (input)="onInput($event)"
+            (blur)="touched.set(true)"
+            placeholder="Nhập tên của bạn..."
+            class="w-full px-4 py-3 rounded-lg bg-red-950 border-2 text-yellow-100 placeholder-red-300 focus:outline-none focus:ring-2 transition-all text-center text-xl"
+            [class]="!inputName().trim() && touched() ? 'border-red-400 focus:border-red-400 focus:ring-red-500/50' : 'border-yellow-600 focus:border-yellow-400 focus:ring-yellow-500/50'"
           >
+          @if (!inputName().trim() && touched()) {
+            <p class="text-red-400 text-sm mt-2">⚠ Vui lòng nhập tên của bạn</p>
+          }
         </div>
 
         <button 
@@ -61,13 +68,35 @@ import { FortuneService } from '../services/fortune.service';
 export class WelcomeComponent {
   fortuneService = inject(FortuneService);
   inputName = signal('');
+  touched = signal(false);
+  private musicStarted = false;
 
   constructor() {
     this.inputName.set(this.fortuneService.userName());
   }
 
+  onFocus() {
+    if (!this.musicStarted) {
+      this.musicStarted = true;
+      this.fortuneService.playBackgroundMusic();
+    }
+  }
+
+  onInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    if (!this.musicStarted && value.trim()) {
+      this.musicStarted = true;
+      this.fortuneService.playBackgroundMusic();
+    }
+  }
+
   start() {
+    this.touched.set(true);
     if (this.inputName().trim()) {
+      if (!this.musicStarted) {
+        this.musicStarted = true;
+        this.fortuneService.playBackgroundMusic();
+      }
       this.fortuneService.setUserName(this.inputName().trim());
     }
   }
