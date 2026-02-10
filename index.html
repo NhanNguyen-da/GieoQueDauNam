@@ -15,7 +15,7 @@
             --golden: #FFD700;
             --dark-gold: #DAA520;
         }
-        
+
         body {
             font-family: 'Noto Serif', serif;
             background-color: var(--primary-red);
@@ -77,25 +77,22 @@
         /* The Cup Faces - Red Envelope Style */
         .cup-face {
             position: absolute;
-            width: 90px; /* Slightly narrower to look like attached cards */
+            width: 90px;
             height: 170px;
-            /* Red Envelope Gradient */
             background: linear-gradient(180deg, #D91E18 0%, #960018 100%);
             border: 2px solid #FFD700;
-            border-radius: 8px; /* Rounded corners for card look */
+            border-radius: 8px;
             box-sizing: border-box;
-            left: 35px; /* Adjust centering */
+            left: 35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 1;
-            /* Shadow to create "attached" depth */
             box-shadow: 0 0 5px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3);
             backface-visibility: hidden;
         }
 
-        /* Decorative Pattern Overlay on Cup Face */
         .cup-face-pattern {
             position: absolute;
             top: 4px; left: 4px; right: 4px; bottom: 4px;
@@ -119,7 +116,7 @@
             border: 2px solid #B8860B;
             z-index: 2;
         }
-        
+
         .cup-decoration {
             color: #FFD700;
             font-size: 0.8rem;
@@ -127,8 +124,6 @@
             opacity: 0.8;
         }
 
-        /* Positioning the 6 faces */
-        /* Increased translateZ slightly to accommodate "attached" look without clipping */
         .cup-face:nth-child(1) { transform: rotateY(0deg) translateZ(82px); }
         .cup-face:nth-child(2) { transform: rotateY(60deg) translateZ(82px); }
         .cup-face:nth-child(3) { transform: rotateY(120deg) translateZ(82px); }
@@ -169,36 +164,33 @@
             transform-style: preserve-3d;
         }
 
-        /* Longer Sticks */
         .stick-body {
             position: absolute;
             bottom: -60px;
             left: -10px;
             width: 20px;
-            height: 280px; /* Increased from 190px */
-            /* Bamboo texture gradient */
+            height: 280px;
             background: linear-gradient(90deg, #F4A460 0%, #FFE4B5 40%, #F4A460 100%);
             transform-origin: bottom center;
             border-radius: 12px;
             box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
             border: 1px solid #CD853F;
         }
-        
+
         .stick-tip {
             position: absolute;
             top: 0;
             width: 100%;
-            height: 55px; /* Slightly longer tip */
+            height: 55px;
             background: linear-gradient(to bottom, #D32F2F, #8B0000);
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             border-bottom: 2px solid rgba(0,0,0,0.15);
         }
 
-        /* Vertical Movement Animation ("In and Out") */
         @keyframes stick-move-vertical {
             0% { transform: rotateX(8deg) translateY(0); }
-            50% { transform: rotateX(10deg) translateY(-35px); } /* Move UP higher */
+            50% { transform: rotateX(10deg) translateY(-35px); }
             100% { transform: rotateX(8deg) translateY(0); }
         }
 
@@ -209,7 +201,7 @@
         .shaking .stick-body {
             animation: none;
         }
-        
+
         .shaking {
             animation: shake-hard 0.6s cubic-bezier(.36,.07,.19,.97) infinite both;
         }
@@ -227,15 +219,15 @@
             10% { opacity: 1; }
             100% { transform: translateY(120vh) rotateZ(720deg) rotateX(180deg); opacity: 1; }
         }
-        
+
         .falling-stick {
             position: absolute;
             width: 24px;
-            height: 290px; /* Longer falling stick */
+            height: 290px;
             background: linear-gradient(90deg, #F4A460, #FFDEAD, #F4A460);
             border: 2px solid #8B4513;
             left: 50%;
-            top: 10%; /* Start higher */
+            top: 10%;
             z-index: 100;
             display: flex;
             justify-content: center;
@@ -244,37 +236,80 @@
             pointer-events: none;
             border-radius: 12px;
         }
-        
+
         .glass-panel {
             background: rgba(139, 0, 0, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 215, 0, 0.3);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
         ::-webkit-scrollbar-thumb { background: #DAA520; border-radius: 4px; }
+
+        /* Component Animations */
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 0.8s ease-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-slow {
+            animation: fadeInSlow 0.8s ease-out;
+        }
+        @keyframes fadeInSlow {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Category icon animations */
+        .cat-card:hover .icon-heartbeat { animation: heartbeat 1.2s infinite; }
+        .cat-card:hover .icon-wiggle { animation: wiggle 0.6s ease-in-out infinite; }
+        .cat-card:hover .icon-float { animation: floatIcon 2s ease-in-out infinite; }
+        .cat-card:hover .icon-spin-slow { animation: spinIcon 3s linear infinite; }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes spinIcon { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Drawing animations */
+        .font-quicksand { font-family: 'Quicksand', sans-serif; }
+        .animate-bounce-slow { animation: bounce 3s infinite; }
+        .animate-hand-shake {
+            animation: handShake 2.5s infinite ease-in-out;
+            transform-origin: 70% 70%;
+            display: inline-block;
+        }
+        @keyframes handShake {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(218, 165, 32, 0.5); border-radius: 4px; }
     </style>
-    <!-- ... scripts ... -->
-<script type="importmap">
-{
-  "imports": {
-    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
-    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
-    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
-    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
-    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
-    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
-    "@angular/compiler": "https://esm.sh/@angular/compiler@^21.1.3?external=rxjs",
-    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.1.3?external=rxjs",
-    "@angular/core": "https://esm.sh/@angular/core@^21.1.3?external=rxjs",
-    "@angular/common": "https://esm.sh/@angular/common@^21.1.3?external=rxjs",
-    "@angular/forms": "https://esm.sh/@angular/forms@^21.1.3?external=rxjs"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div class="bg-pattern"></div>
@@ -283,7 +318,495 @@
     <div class="plum-blossom" style="left: 70%; animation-delay: 4s;"></div>
     <div class="plum-blossom" style="left: 50%; animation-delay: 6s;"></div>
     <div class="plum-blossom" style="left: 90%; animation-delay: 1s;"></div>
-    
-    <app-root></app-root>
+
+    <main id="app" class="min-h-screen w-full relative z-10"></main>
+
+    <footer class="fixed bottom-2 w-full text-center text-xs text-white/30 z-0 pointer-events-none">
+        NhanNT &copy; <script>document.write(new Date().getFullYear())</script>
+    </footer>
+
+<script>
+// ========== FORTUNE DATA ==========
+const FORTUNES = {
+  love: [
+    { id: 1, level: "Thượng Thượng", poem: ["Hoa khai phú quý mãn đường tiền", "Nhật nhật bình an phúc thọ toàn", "Lương duyên thiên định mạc cưỡng cầu", "Bách niên giai lão cộng chẩm miên"], interpretation: "Tình duyên của bạn đang trong giai đoạn nở rộ rực rỡ. Nếu đang độc thân, bạn sắp gặp được ý trung nhân. Nếu đã có đôi, tình cảm sẽ càng thêm gắn kết.", advice: "Hãy mở lòng và chân thành. Đừng ngần ngại bày tỏ cảm xúc của mình với người ấy.", luckyColor: "#FF69B4", luckyNumber: 9 },
+    { id: 2, level: "Cát Tường", poem: ["Hữu duyên thiên lý năng tương ngộ", "Vô duyên đối diện bất tương phùng", "Đợi chờ cơn gió đông vừa tới", "Thuyền tình cập bến thỏa ước mong"], interpretation: "Chuyện tình cảm cần thêm thời gian để chín muồi. Kiên nhẫn và chân thành sẽ giúp bạn gặp đúng người vào đúng thời điểm.", advice: "Kiên nhẫn là chìa khóa. Hãy tập trung hoàn thiện bản thân trong khi chờ đợi duyên lành.", luckyColor: "#87CEEB", luckyNumber: 4 },
+    { id: 3, level: "Thượng Thượng", poem: ["Duyên hồng vừa chớm nụ", "Thương nhau thêm một chút", "Trăng sáng soi chung lối", "Tơ duyên se bền chặt"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Đừng vội, cứ để cảm xúc chín dần.", luckyColor: "#FF8FA3", luckyNumber: 2 },
+    { id: 4, level: "Thượng Cát", poem: ["Tình sâu rồi sẽ hóa keo sơn", "Giữ lòng tử tế thì hoa nở", "Ngày vui rạng rỡ đến gần hơn", "Nhịp tim đồng điệu như tơ liễu"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#FF7EB6", luckyNumber: 486 },
+    { id: 5, level: "Đại Cát", poem: ["Thương nhau thêm một chút", "Gió xuân chạm bờ môi", "Nụ cười hóa bình yên", "Mắt nhìn nhau ấm áp"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FFC0CB", luckyNumber: 228 },
+    { id: 6, level: "Cát Tường", poem: ["Tình sâu rồi sẽ hóa keo sơn", "Giữ lòng tử tế thì hoa nở", "Ngày vui rạng rỡ đến gần hơn", "Nhịp tim đồng điệu như tơ liễu"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#E75480", luckyNumber: 384 },
+    { id: 7, level: "Đại Cát", poem: ["Trăng sáng soi chung lối", "Tơ tình se bền chặt", "Đào nở bên hiên nhỏ", "Tình nở giữa nhân duyên"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực thu hút người đó.", advice: "Đừng vội, cứ để cảm xúc chín dần.", luckyColor: "#FF69B4", luckyNumber: 58 },
+    { id: 8, level: "Thượng Cát", poem: ["Gió xuân chạm bờ môi", "Tình nở giữa nhân duyên", "Một lời chân thành đủ", "Duyên hồng vừa chớm nụ"], interpretation: "Tình cảm thuận lợi, dễ gặp đúng người.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#FF69B4", luckyNumber: 463 },
+    { id: 9, level: "Thượng Cát", poem: ["Nụ cười hóa bình yên", "Đào nở bên hiên nhỏ", "Duyên hồng vừa chớm nụ", "Ngày mai càng rạng ngời"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#FF8FA3", luckyNumber: 264 },
+    { id: 10, level: "Thượng Thượng", poem: ["Trăng sáng đầu hiên tỏ nghĩa vàng", "Giữ lòng tử tế thì hoa nở", "Yêu thương đủ lớn sẽ thành hình", "Nụ cười người ấy như hoa nắng"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FF7EB6", luckyNumber: 250 },
+    { id: 11, level: "Thượng Thượng", poem: ["Tình nở giữa nhân duyên", "Tơ hồng se bền chặt", "Ngày mai càng rạng ngời", "Gió xuân chạm bờ môi"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FFC0CB", luckyNumber: 172 },
+    { id: 12, level: "Cát Tường", poem: ["Gió xuân chạm bờ môi", "Hai tim đồng nhịp vui", "Nụ cười hóa bình yên", "Mắt nhìn nhau ấm áp"], interpretation: "Tình cảm thuận lợi, dễ gặp đúng người.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FF7EB6", luckyNumber: 392 },
+    { id: 13, level: "Cát Tường", poem: ["Đào nở bên hiên nhỏ", "Tình nở giữa nhân duyên", "Hai tim đồng nhịp vui", "Một lời chân thành đủ"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FFC0CB", luckyNumber: 162 },
+    { id: 14, level: "Thượng Cát", poem: ["Không vội, không lo, duyên tự đến", "Một câu hỏi thăm thành phép nhiệm", "Tình sâu rồi sẽ hóa keo sơn", "Phúc lộc nhân duyên đến đúng ngày"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FF8FA3", luckyNumber: 367 },
+    { id: 15, level: "Đại Cát", poem: ["Duyên hồng vừa chớm nụ", "Hai tim đồng nhịp vui", "Thương nhau thêm một chút", "Ngày mai càng rạng ngời"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Đừng vội, cứ để cảm xúc chín dần.", luckyColor: "#FFC0CB", luckyNumber: 120 },
+    { id: 16, level: "Thượng Cát", poem: ["Gió xuân chạm bờ môi", "Nụ cười hóa bình yên", "Ngày mai càng rạng ngời", "Thương nhau thêm một chút"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FFC0CB", luckyNumber: 289 },
+    { id: 17, level: "Đại Cát", poem: ["Mỗi bước đồng hành thêm hiểu biết", "Giữ lòng tử tế thì hoa nở", "Một ánh mắt cười tan băng giá", "Lời hẹn đầu xuân gieo hy vọng"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#E75480", luckyNumber: 300 },
+    { id: 18, level: "Thượng Cát", poem: ["Bến đỗ bình yên đợi một người", "Thương mến vun bồi đẹp sớm mai", "Đào hồng trước ngõ chim về đậu", "Gió xuân nâng bước tới bình an"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FF69B4", luckyNumber: 355 },
+    { id: 19, level: "Thượng Cát", poem: ["Lời hẹn đầu xuân gieo hy vọng", "Đường tình từ đó nở ngàn hoa", "Trăng sáng đầu hiên tỏ nghĩa vàng", "Yêu thương đủ lớn sẽ thành hình"], interpretation: "Duyên lành đến tự nhiên, cứ bình tĩnh đón nhận.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FF7EB6", luckyNumber: 379 },
+    { id: 20, level: "Đại Cát", poem: ["Tơ duyên se bền chặt", "Đào nở bên hiên nhỏ", "Tình nở giữa nhân duyên", "Thương nhau thêm một chút"], interpretation: "Tình cảm thuận lợi, dễ gặp đúng người.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FF7EB6", luckyNumber: 444 },
+    { id: 21, level: "Đại Cát", poem: ["Một lời chân thành đủ", "Thương nhau thêm một chút", "Duyên hồng vừa chớm nụ", "Nụ cười hóa bình yên"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực.", advice: "Đừng vội, cứ để cảm xúc chín dần.", luckyColor: "#E75480", luckyNumber: 480 },
+    { id: 22, level: "Thượng Cát", poem: ["Lời hẹn đầu xuân gieo hy vọng", "Đường tình từ đó nở ngàn hoa", "Trăng sáng đầu hiên tỏ nghĩa vàng", "Yêu thương đủ lớn sẽ thành hình"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FFC0CB", luckyNumber: 293 },
+    { id: 23, level: "Đại Cát", poem: ["Phố chiều lộng gió mang tin tốt", "Bến đỗ bình yên đợi một người", "Không vội, không lo, duyên tự đến", "Một ánh mắt cười tan băng giá"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Quan tâm đều đặn là chìa khóa.", luckyColor: "#FFC0CB", luckyNumber: 165 },
+    { id: 24, level: "Thượng Thượng", poem: ["Gió xuân chạm bờ môi", "Tình nở giữa nhân duyên", "Một lời chân thành đủ", "Tơ duyên se bền chặt"], interpretation: "Mối quan hệ hiện tại có chiều hướng tốt.", advice: "Một lời tử tế đúng lúc rất quý.", luckyColor: "#FFC0CB", luckyNumber: 269 },
+    { id: 25, level: "Thượng Thượng", poem: ["Phố chiều lộng gió mang tin tốt", "Bến đỗ bình yên đợi một người", "Không vội, không lo, duyên tự đến", "Một ánh mắt cười tan băng giá"], interpretation: "Bạn tỏa năng lượng ấm áp và tích cực.", advice: "Hãy nói thật lòng và lắng nghe nhau.", luckyColor: "#FF69B4", luckyNumber: 229 }
+  ],
+  career: [
+    { id: 26, level: "Thượng Cát", poem: ["Thành quả tới ngày mai", "Quý nhân thường xuất hiện", "Nỗ lực hôm nay sáng", "Mỗi ngày thêm kỹ năng"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#C9A227", luckyNumber: 158 },
+    { id: 27, level: "Đại Cát", poem: ["Khi mình biết miệt mài", "Bản lĩnh vượt đường dài", "Công việc đang lên đà", "Mỗi ngày thêm kỹ năng"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Học thêm một kỹ năng bổ trợ.", luckyColor: "#C9A227", luckyNumber: 105 },
+    { id: 28, level: "Cát Tường", poem: ["Quý nhân thường xuất hiện", "Cộng tác sinh sức mạnh", "Mỗi ngày thêm kỹ năng", "Công việc đang lên đà"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#FFB703", luckyNumber: 338 },
+    { id: 29, level: "Đại Cát", poem: ["Bản lĩnh vượt đường dài", "Mục tiêu dần mở lối", "Thành quả tới ngày mai", "Mỗi bước thêm vững chắc"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#C9A227", luckyNumber: 125 },
+    { id: 30, level: "Thượng Cát", poem: ["Năng lượng tích cực đẩy tiến trình", "Ngàn ngày tích lũy hóa bông hoa", "Chuẩn bị kỹ càng sẽ nắm tay", "Quý nhân xuất hiện khi cần nhất"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#F4C430", luckyNumber: 75 },
+    { id: 31, level: "Trung Cát", poem: ["Khi mình biết miệt mài", "Sự nghiệp nở huy hoàng", "Thành quả tới ngày mai", "Công việc đang lên đà"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#F4C430", luckyNumber: 121 },
+    { id: 32, level: "Đại Cát", poem: ["Vinh quang đến đúng với người hay", "Chuẩn bị kỹ càng sẽ nắm tay", "Bản lĩnh tôi rèn qua thử thách", "Vững vàng trước áp lực ngắn hạn"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Học thêm một kỹ năng bổ trợ.", luckyColor: "#C9A227", luckyNumber: 387 },
+    { id: 33, level: "Cát Tường", poem: ["Cộng tác sinh sức mạnh", "Bản lĩnh vượt đường dài", "Mỗi ngày thêm kỹ năng", "Mục tiêu dần mở lối"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#C9A227", luckyNumber: 161 },
+    { id: 34, level: "Trung Cát", poem: ["Mục tiêu dần mở lối", "Khi mình biết miệt mài", "Công việc đang lên đà", "Quý nhân thường xuất hiện"], interpretation: "Đây là lúc tốt để bứt phá mục tiêu.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#F4C430", luckyNumber: 457 },
+    { id: 35, level: "Đại Cát", poem: ["Mỗi bước thêm vững chắc", "Thành quả tới ngày mai", "Mục tiêu dần mở lối", "Mỗi ngày thêm kỹ năng"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#FFD700", luckyNumber: 311 },
+    { id: 36, level: "Cát Tường", poem: ["Mưu sự tại nhân, thành tại tín", "Kỹ năng nâng cấp vững đường xa", "Đam mê làm lửa giữ đêm dài", "Thành quả hôm nay xứng tháng năm"], interpretation: "Đây là lúc tốt để bứt phá mục tiêu.", advice: "Học thêm một kỹ năng bổ trợ.", luckyColor: "#FFD700", luckyNumber: 170 },
+    { id: 37, level: "Cát Tường", poem: ["Ngàn ngày tích lũy hóa bông hoa", "Tự tin tiến bước, chí thêm gần", "Đường nghề từ đó rộng thênh thang", "Lộ trình thăng tiến dần rõ nét"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#FFB703", luckyNumber: 448 },
+    { id: 38, level: "Cát Tường", poem: ["Đường nghề từ đó rộng thênh thang", "Thành quả hôm nay xứng tháng năm", "Kết quả dài lâu sẽ hiển minh", "Sự nghiệp lên hương tựa gió xanh"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#FFB703", luckyNumber: 1 },
+    { id: 39, level: "Thượng Cát", poem: ["Một bước chủ động sinh cơ hội", "Năng lượng tích cực đẩy tiến trình", "Ngàn ngày tích lũy hóa bông hoa", "Vinh quang đến đúng với người hay"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Học thêm một kỹ năng bổ trợ.", luckyColor: "#FFD700", luckyNumber: 101 },
+    { id: 40, level: "Thượng Cát", poem: ["Sự nghiệp nở huy hoàng", "Bản lĩnh vượt đường dài", "Quý nhân thường xuất hiện", "Mỗi bước thêm vững chắc"], interpretation: "Sự nghiệp có đà tăng trưởng rõ rệt.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#FFB703", luckyNumber: 126 },
+    { id: 41, level: "Cát Tường", poem: ["Đam mê làm lửa giữ đêm dài", "Thành quả hôm nay xứng tháng năm", "Ngàn ngày tích lũy hóa bông hoa", "Việc khó qua tay thành việc dễ"], interpretation: "Đây là lúc tốt để bứt phá mục tiêu.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#C9A227", luckyNumber: 142 },
+    { id: 42, level: "Thượng Cát", poem: ["Cộng tác sinh sức mạnh", "Khi mình biết miệt mài", "Nỗ lực hôm nay sáng", "Thành quả tới ngày mai"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#DAA520", luckyNumber: 26 },
+    { id: 43, level: "Đại Cát", poem: ["Sự nghiệp nở huy hoàng", "Giữ tâm và giữ nhịp", "Mục tiêu dần mở lối", "Khi mình biết miệt mài"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Giữ kỷ luật và theo dõi tiến độ.", luckyColor: "#FFB703", luckyNumber: 98 },
+    { id: 44, level: "Trung Cát", poem: ["Khi mình biết miệt mài", "Sự nghiệp nở huy hoàng", "Cộng tác sinh sức mạnh", "Bản lĩnh vượt đường dài"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#FFD700", luckyNumber: 466 },
+    { id: 45, level: "Đại Cát", poem: ["Kết quả dài lâu sẽ hiển minh", "Vững vàng trước áp lực ngắn hạn", "Thành công lan tỏa khắp phòng ban", "Mưu sự tại nhân, thành sự tại tín"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#FFD700", luckyNumber: 265 },
+    { id: 46, level: "Thượng Cát", poem: ["Kiên trì từng chút hóa thiên tài", "Kế hoạch rõ ràng sinh hiệu suất", "Công việc hanh thông mở lối vàng", "Tự tin tiến bước, chí thêm gần"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Chủ động nhận thử thách phù hợp.", luckyColor: "#DAA520", luckyNumber: 315 },
+    { id: 47, level: "Cát Tường", poem: ["Cộng tác sinh sức mạnh", "Thành quả tới ngày mai", "Công việc đang lên đà", "Sự nghiệp nở huy hoàng"], interpretation: "Cơ hội mới đang đến khá gần.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#C9A227", luckyNumber: 310 },
+    { id: 48, level: "Thượng Cát", poem: ["Mục tiêu dần mở lối", "Công việc đang lên đà", "Bản lĩnh vượt đường dài", "Sự nghiệp nở huy hoàng"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#C9A227", luckyNumber: 382 },
+    { id: 49, level: "Đại Cát", poem: ["Quý nhân thường xuất hiện", "Công việc đang lên đà", "Sự nghiệp nở huy hoàng", "Khi mình biết miệt mài"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Ưu tiên việc quan trọng nhất mỗi ngày.", luckyColor: "#C9A227", luckyNumber: 432 },
+    { id: 50, level: "Thượng Cát", poem: ["Quý nhân thường xuất hiện", "Nỗ lực hôm nay sáng", "Khi mình biết miệt mài", "Bản lĩnh vượt đường dài"], interpretation: "Bạn dễ được ghi nhận trong công việc.", advice: "Học thêm một kỹ năng bổ trợ.", luckyColor: "#FFD700", luckyNumber: 327 }
+  ],
+  family: [
+    { id: 51, level: "Thượng Thượng", poem: ["Anh em biết nhường nhau", "Gia hòa sinh phúc lộc", "Trên dưới cùng thuận thảo", "Giữ nhà luôn ấm màu"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FFA500", luckyNumber: 441 },
+    { id: 52, level: "Cát Tường", poem: ["Giữ nhà luôn ấm màu", "Yêu thương bằng lắng nghe", "Hạnh phúc từ điều nhỏ", "Gia hòa sinh phúc lộc"], interpretation: "Không khí nhà cửa tích cực và vui vẻ.", advice: "Chủ động làm hòa khi có hiểu lầm.", luckyColor: "#FFA500", luckyNumber: 110 },
+    { id: 53, level: "Thượng Thượng", poem: ["Một lời ôn tồn nhẹ", "Một câu chào buổi tối", "Yêu thương bằng lắng nghe", "Gia hòa sinh phúc lộc"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Chủ động làm hòa khi có hiểu lầm.", luckyColor: "#FFA500", luckyNumber: 354 },
+    { id: 54, level: "Đại Cát", poem: ["Gia hòa sinh phúc lộc", "Một câu chào buổi tối", "Bình an sau giông gió", "Một lời ôn tồn nhẹ"], interpretation: "Không khí nhà cửa tích cực và vui vẻ.", advice: "Giữ thói quen bữa cơm chung.", luckyColor: "#FF9F1C", luckyNumber: 100 },
+    { id: 55, level: "Phúc Cát", poem: ["Ấm cả một khoảng trời", "Anh em biết nhường nhau", "Bữa cơm thêm tiếng cười", "Một lời ôn tồn nhẹ"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FB8500", luckyNumber: 475 },
+    { id: 56, level: "Đại Cát", poem: ["Một lời ôn tồn nhẹ", "Ấm cả một khoảng trời", "Bình an sau giông gió", "Anh em biết nhường nhau"], interpretation: "Không khí nhà cửa tích cực và vui vẻ.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FB8500", luckyNumber: 80 },
+    { id: 57, level: "Đại Cát", poem: ["Gia hòa sinh phúc lộc", "Yêu thương bằng lắng nghe", "Một câu chào buổi tối", "Bình an sau giông gió"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FB8500", luckyNumber: 393 },
+    { id: 58, level: "Phúc Cát", poem: ["Trên dưới cùng thuận thảo", "Bữa cơm thêm tiếng cười", "Yêu thương bằng lắng nghe", "Anh em biết nhường nhau"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#FF9F1C", luckyNumber: 445 },
+    { id: 59, level: "Thượng Thượng", poem: ["Anh em biết nhường nhau", "Giữ nhà luôn ấm màu", "Một câu chào buổi tối", "Gia hòa sinh phúc lộc"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#F77F00", luckyNumber: 111 },
+    { id: 60, level: "Thượng Thượng", poem: ["Bữa cơm thêm tiếng cười", "Trên dưới cùng thuận thảo", "Hạnh phúc từ điều nhỏ", "Một câu chào buổi tối"], interpretation: "Phúc khí gia đạo đang tăng.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#F77F00", luckyNumber: 452 },
+    { id: 61, level: "Đại Cát", poem: ["Nhà là nơi trở về", "Yêu thương bằng lắng nghe", "Một câu chào buổi tối", "Giữ nhà luôn ấm màu"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FF9F1C", luckyNumber: 204 },
+    { id: 62, level: "Thượng Thượng", poem: ["Gia hòa sinh phúc lộc", "Một câu chào buổi tối", "Giữ nhà luôn ấm màu", "Nhà là nơi trở về"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#FFA500", luckyNumber: 3 },
+    { id: 63, level: "Đại Cát", poem: ["Gia hòa sinh phúc lộc", "Bình an sau giông gió", "Một lời ôn tồn nhẹ", "Yêu thương bằng lắng nghe"], interpretation: "Phúc khí gia đạo đang tăng.", advice: "Giữ thói quen bữa cơm chung.", luckyColor: "#E76F51", luckyNumber: 471 },
+    { id: 64, level: "Đại Cát", poem: ["Hạnh phúc từ điều nhỏ", "Giữ nhà luôn ấm màu", "Trên dưới cùng thuận thảo", "Một câu chào buổi tối"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#F77F00", luckyNumber: 200 },
+    { id: 65, level: "Thượng Thượng", poem: ["Một câu chào buổi tối", "Trên dưới cùng thuận thảo", "Ấm cả một khoảng trời", "Yêu thương bằng lắng nghe"], interpretation: "Phúc khí gia đạo đang tăng.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#FF9F1C", luckyNumber: 211 },
+    { id: 66, level: "Đại Cát", poem: ["Hạnh phúc từ điều nhỏ", "Một lời ôn tồn nhẹ", "Một câu chào buổi tối", "Gia hòa sinh phúc lộc"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Chủ động làm hòa khi có hiểu lầm.", luckyColor: "#FB8500", luckyNumber: 446 },
+    { id: 67, level: "Cát Tường", poem: ["Giữ nhà luôn ấm màu", "Trên dưới cùng thuận thảo", "Bữa cơm thêm tiếng cười", "Hạnh phúc từ điều nhỏ"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#F77F00", luckyNumber: 449 },
+    { id: 68, level: "Đại Cát", poem: ["Gia hòa sinh phúc lộc", "Ấm cả một khoảng trời", "Anh em biết nhường nhau", "Trên dưới cùng thuận thảo"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#E76F51", luckyNumber: 431 },
+    { id: 69, level: "Cát Tường", poem: ["Hạnh phúc từ điều nhỏ", "Nhà là nơi trở về", "Một lời ôn tồn nhẹ", "Trên dưới cùng thuận thảo"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#E76F51", luckyNumber: 209 },
+    { id: 70, level: "Phúc Cát", poem: ["Một câu chào buổi tối", "Bữa cơm thêm tiếng cười", "Nhà là nơi trở về", "Một lời ôn tồn nhẹ"], interpretation: "Phúc khí gia đạo đang tăng.", advice: "Dành thêm thời gian cho người thân.", luckyColor: "#F77F00", luckyNumber: 7 },
+    { id: 71, level: "Thượng Thượng", poem: ["Giữ nhà luôn ấm màu", "Nhà là nơi trở về", "Một lời ôn tồn nhẹ", "Yêu thương bằng lắng nghe"], interpretation: "Không khí nhà cửa tích cực và vui vẻ.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#FFA500", luckyNumber: 259 },
+    { id: 72, level: "Thượng Thượng", poem: ["Yêu thương bằng lắng nghe", "Giữ nhà luôn ấm màu", "Một câu chào buổi tối", "Trên dưới cùng thuận thảo"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Giữ thói quen bữa cơm chung.", luckyColor: "#F77F00", luckyNumber: 262 },
+    { id: 73, level: "Thượng Thượng", poem: ["Trên dưới cùng thuận thảo", "Một lời ôn tồn nhẹ", "Anh em biết nhường nhau", "Giữ nhà luôn ấm màu"], interpretation: "Phúc khí gia đạo đang tăng.", advice: "Lắng nghe trước khi góp ý.", luckyColor: "#E76F51", luckyNumber: 335 },
+    { id: 74, level: "Đại Cát", poem: ["Bữa cơm thêm tiếng cười", "Một lời ôn tồn nhẹ", "Anh em biết nhường nhau", "Giữ nhà luôn ấm màu"], interpretation: "Gia đình êm ấm, dễ hòa hợp.", advice: "Giữ thói quen bữa cơm chung.", luckyColor: "#F77F00", luckyNumber: 68 },
+    { id: 75, level: "Cát Tường", poem: ["Bình an sau giông gió", "Bữa cơm thêm tiếng cười", "Trên dưới cùng thuận thảo", "Giữ nhà luôn ấm màu"], interpretation: "Hiểu lầm nhỏ dễ được hóa giải.", advice: "Giữ thói quen bữa cơm chung.", luckyColor: "#FF9F1C", luckyNumber: 84 }
+  ],
+  health: [
+    { id: 76, level: "Trung Cát", poem: ["Nắng mới ấm ban công", "Tâm an thân thêm khỏe", "Đi bộ đều từng bước", "Ăn xanh và uống đủ"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Đi bộ 20 phút mỗi ngày.", luckyColor: "#32CD32", luckyNumber: 279 },
+    { id: 77, level: "Thượng Cát", poem: ["Đổi lại một thân lành", "Nắng mới ấm ban công", "Một đời hưởng an vui", "Phúc thọ tự tìm tới"], interpretation: "Tinh thần và thể lực khá cân bằng.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#32CD32", luckyNumber: 119 },
+    { id: 78, level: "Cát An", poem: ["Nắng mới ấm ban công", "Đổi lại một thân lành", "Một ngày chăm một chút", "Ngủ sớm trí thêm trong"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Đi bộ 20 phút mỗi ngày.", luckyColor: "#2ECC71", luckyNumber: 456 },
+    { id: 79, level: "Thượng Cát", poem: ["Giữ nhịp sinh hoạt tốt", "Tâm an thân thêm khỏe", "Đổi lại một thân lành", "Đi bộ đều từng bước"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#2ECC71", luckyNumber: 474 },
+    { id: 80, level: "Cát An", poem: ["Ngủ sớm trí thêm trong", "Đổi lại một thân lành", "Kỷ luật điều rất nhỏ", "Giữ nhịp sinh hoạt tốt"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#2ECC71", luckyNumber: 245 },
+    { id: 81, level: "Trung Cát", poem: ["Đổi lại một thân lành", "Kỷ luật điều rất nhỏ", "Ngủ sớm trí thêm trong", "Ăn xanh và uống đủ"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#32CD32", luckyNumber: 193 },
+    { id: 82, level: "Cát An", poem: ["Tâm an thân thêm khỏe", "Giữ nhịp sinh hoạt tốt", "Nắng mới ấm ban công", "Ăn xanh và uống đủ"], interpretation: "Tinh thần và thể lực khá cân bằng.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#2ECC71", luckyNumber: 427 },
+    { id: 83, level: "Cát An", poem: ["Ăn xanh và uống đủ", "Một ngày chăm một chút", "Phúc thọ tự tìm tới", "Thở chậm để bình tâm"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#2ECC71", luckyNumber: 398 },
+    { id: 84, level: "Trung Cát", poem: ["Phúc thọ tự tìm tới", "Ăn xanh và uống đủ", "Giữ nhịp sinh hoạt tốt", "Nắng mới ấm ban công"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#66BB6A", luckyNumber: 144 },
+    { id: 85, level: "Cát An", poem: ["Nắng mới ấm ban công", "Một ngày chăm một chút", "Ăn xanh và uống đủ", "Phúc thọ tự tìm tới"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#66BB6A", luckyNumber: 55 },
+    { id: 86, level: "Phúc Thọ", poem: ["Giữ nhịp sinh hoạt tốt", "Kỷ luật điều rất nhỏ", "Đổi lại một thân lành", "Nắng mới ấm ban công"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#27AE60", luckyNumber: 53 },
+    { id: 87, level: "Cát An", poem: ["Ngủ sớm trí thêm trong", "Một ngày chăm một chút", "Thở chậm để bình tâm", "Kỷ luật điều rất nhỏ"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#66BB6A", luckyNumber: 127 },
+    { id: 88, level: "Trung Cát", poem: ["Ngủ sớm trí thêm trong", "Đi bộ đều từng bước", "Nắng mới ấm ban công", "Một đời hưởng an vui"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#32CD32", luckyNumber: 284 },
+    { id: 89, level: "Cát An", poem: ["Đi bộ đều từng bước", "Tâm an thân thêm khỏe", "Ngủ sớm trí thêm trong", "Giữ nhịp sinh hoạt tốt"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#27AE60", luckyNumber: 247 },
+    { id: 90, level: "Trung Cát", poem: ["Một ngày chăm một chút", "Một đời hưởng an vui", "Ngủ sớm trí thêm trong", "Thở chậm để bình tâm"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Đi bộ 20 phút mỗi ngày.", luckyColor: "#66BB6A", luckyNumber: 194 },
+    { id: 91, level: "Trung Cát", poem: ["Tâm an thân thêm khỏe", "Ăn xanh và uống đủ", "Một ngày chăm một chút", "Một đời hưởng an vui"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#2ECC71", luckyNumber: 377 },
+    { id: 92, level: "Trung Cát", poem: ["Kiên trì một tháng thành thói tốt", "Bớt lo, thêm nghỉ, trí tinh anh", "Đêm về ngủ sớm giấc an nhiên", "Nắng sớm bổ sung nguồn sinh khí"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Giảm căng thẳng bằng hít thở sâu.", luckyColor: "#27AE60", luckyNumber: 207 },
+    { id: 93, level: "Thượng Cát", poem: ["Phúc thọ tự tìm tới", "Nắng mới ấm ban công", "Kỷ luật điều rất nhỏ", "Ăn xanh và uống đủ"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Đi bộ 20 phút mỗi ngày.", luckyColor: "#00C853", luckyNumber: 27 },
+    { id: 94, level: "Thượng Cát", poem: ["Tâm an thân thêm khỏe", "Đi bộ đều từng bước", "Giữ nhịp sinh hoạt tốt", "Kỷ luật điều rất nhỏ"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#66BB6A", luckyNumber: 149 },
+    { id: 95, level: "Phúc Thọ", poem: ["Kiên trì một tháng thành thói tốt", "Bớt lo, thêm nghỉ, trí tinh anh", "Đêm về ngủ sớm giấc an nhiên", "Nắng sớm bổ sung nguồn sinh khí"], interpretation: "Duy trì kỷ luật nhẹ sẽ thấy cải thiện.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#2ECC71", luckyNumber: 187 },
+    { id: 96, level: "Phúc Thọ", poem: ["Giữ nhịp sinh hoạt tốt", "Đi bộ đều từng bước", "Nắng mới ấm ban công", "Thở chậm để bình tâm"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#00C853", luckyNumber: 495 },
+    { id: 97, level: "Thượng Cát", poem: ["Đi bộ đều từng bước", "Một ngày chăm một chút", "Một đời hưởng an vui", "Tâm an thân thêm khỏe"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#32CD32", luckyNumber: 32 },
+    { id: 98, level: "Cát An", poem: ["Ngủ đủ canh khuya trí sáng trong", "Nắng sớm bổ sung nguồn sinh khí", "Cơ thể đáp lời rất dịu hiền", "Phúc thọ song hành đến dài lâu"], interpretation: "Sức khỏe ổn định, tiến triển tốt.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#27AE60", luckyNumber: 271 },
+    { id: 99, level: "Phúc Thọ", poem: ["Đổi lại một thân lành", "Một ngày chăm một chút", "Phúc thọ tự tìm tới", "Ngủ sớm trí thêm trong"], interpretation: "Cơ thể đáp ứng tốt khi sinh hoạt đều.", advice: "Uống đủ nước và ăn cân bằng.", luckyColor: "#27AE60", luckyNumber: 272 },
+    { id: 100, level: "Cát An", poem: ["Tâm an thân thêm khỏe", "Một ngày chăm một chút", "Thở chậm để bình tâm", "Nắng mới ấm ban công"], interpretation: "Tinh thần và thể lực khá cân bằng.", advice: "Ngủ sớm hơn để hồi phục tốt.", luckyColor: "#00C853", luckyNumber: 465 }
+  ]
+};
+
+// ========== APP STATE ==========
+const state = {
+  screen: 'welcome',
+  userName: localStorage.getItem('fortune_userName') || '',
+  category: null,
+  fortune: null,
+  bgAudio: null,
+  musicStarted: false
+};
+
+const audioFiles = ['assets/cutcut.mp3', 'assets/cutmtp.mp3', 'assets/linhcut.mp3', 'assets/trucnhan.mp3'];
+
+function playBackgroundMusic() {
+  stopBackgroundMusic();
+  const src = audioFiles[Math.floor(Math.random() * audioFiles.length)];
+  state.bgAudio = new Audio(src);
+  state.bgAudio.loop = true;
+  state.bgAudio.volume = 0.5;
+  state.bgAudio.addEventListener('error', () => console.error('Failed to load audio:', src));
+  state.bgAudio.play().catch(err => console.warn('Autoplay blocked:', err.message));
+}
+
+function stopBackgroundMusic() {
+  if (state.bgAudio) {
+    state.bgAudio.pause();
+    state.bgAudio.currentTime = 0;
+    state.bgAudio = null;
+  }
+}
+
+function navigate(screen) {
+  state.screen = screen;
+  render();
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ========== SCREEN RENDERERS ==========
+
+function renderWelcome() {
+  return `
+    <div class="flex flex-col items-center justify-center min-h-screen text-center p-6 animate-fade-in relative overflow-hidden">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0">
+          <div class="w-[300px] h-[300px] bg-red-800 rounded-full blur-3xl"></div>
+      </div>
+      <div class="relative z-10 mb-8 md:mb-12">
+        <div class="absolute -top-8 -left-8 md:-top-10 md:-left-10 text-5xl md:text-6xl opacity-50 animate-pulse">🌸</div>
+        <h1 class="text-4xl md:text-6xl font-bold text-yellow-400 drop-shadow-lg mb-2 tracking-wide">
+          Gieo Quẻ<br/><span class="text-5xl md:text-7xl">Tân Xuân</span>
+        </h1>
+        <div class="h-1 w-32 bg-yellow-500 mx-auto rounded-full mt-2"></div>
+        <p class="text-lg md:text-xl text-yellow-100 mt-4 italic">Khám phá vận mệnh - Đón lộc đầu năm</p>
+        <div class="absolute -bottom-8 -right-8 md:-bottom-10 md:-right-10 text-5xl md:text-6xl opacity-50 animate-pulse delay-700">🌸</div>
+      </div>
+      <div class="w-full max-w-sm md:max-w-md glass-panel p-6 md:p-8 rounded-2xl transform transition-all duration-500 hover:scale-105 shadow-2xl z-10">
+        <div class="mb-6">
+          <label class="block text-yellow-300 text-lg mb-2 font-bold">Quý danh của bạn:</label>
+          <input id="nameInput" type="text" value="${escapeHtml(state.userName)}" placeholder="Nhập tên của bạn..."
+            class="w-full px-4 py-3 rounded-lg bg-red-950 border-2 border-yellow-600 text-yellow-100 placeholder-red-300 focus:outline-none focus:ring-2 focus:border-yellow-400 focus:ring-yellow-500/50 transition-all text-center text-xl">
+          <p id="nameError" class="text-red-400 text-sm mt-2 hidden">⚠ Vui lòng nhập tên của bạn</p>
+        </div>
+        <button id="startBtn" class="w-full py-4 px-6 bg-gradient-to-r from-yellow-600 to-yellow-400 text-red-900 font-bold text-xl rounded-full shadow-lg transform active:scale-95 transition-all hover:shadow-yellow-500/50 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider">
+          Bắt Đầu
+        </button>
+      </div>
+      <div class="h-10"></div>
+    </div>`;
+}
+
+function bindWelcome() {
+  const input = document.getElementById('nameInput');
+  const btn = document.getElementById('startBtn');
+  const err = document.getElementById('nameError');
+
+  input.addEventListener('focus', () => {
+    if (!state.musicStarted) {
+      state.musicStarted = true;
+      playBackgroundMusic();
+    }
+  });
+
+  input.addEventListener('input', () => {
+    btn.disabled = !input.value.trim();
+    if (input.value.trim()) err.classList.add('hidden');
+  });
+
+  input.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') startApp();
+  });
+
+  btn.addEventListener('click', startApp);
+  btn.disabled = !input.value.trim();
+
+  function startApp() {
+    const name = input.value.trim();
+    if (!name) {
+      err.classList.remove('hidden');
+      input.classList.remove('border-yellow-600');
+      input.classList.add('border-red-400');
+      return;
+    }
+    if (!state.musicStarted) {
+      state.musicStarted = true;
+      playBackgroundMusic();
+    }
+    state.userName = name;
+    localStorage.setItem('fortune_userName', name);
+    navigate('category');
+  }
+}
+
+function renderCategory() {
+  const cats = [
+    { key: 'love', icon: '💕', label: 'Tình Duyên', hoverColor: 'pink', animClass: 'icon-heartbeat', borderHover: 'hover:border-pink-400/50', shadow: 'hover:shadow-[0_0_20px_rgba(236,72,153,0.3)]', glow: 'from-pink-900/60', textGrad: 'from-pink-200 to-pink-100', ring: 'group-hover:ring-pink-400/30' },
+    { key: 'career', icon: '💼', label: 'Công Việc', hoverColor: 'blue', animClass: 'icon-wiggle', borderHover: 'hover:border-blue-400/50', shadow: 'hover:shadow-[0_0_20px_rgba(96,165,250,0.3)]', glow: 'from-blue-900/60', textGrad: 'from-blue-200 to-blue-100', ring: 'group-hover:ring-blue-400/30' },
+    { key: 'family', icon: '🏠', label: 'Gia Đình', hoverColor: 'orange', animClass: 'icon-float', borderHover: 'hover:border-orange-400/50', shadow: 'hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]', glow: 'from-orange-900/60', textGrad: 'from-orange-200 to-orange-100', ring: 'group-hover:ring-orange-400/30' },
+    { key: 'health', icon: '🍀', label: 'Sức Khỏe', hoverColor: 'green', animClass: 'icon-spin-slow', borderHover: 'hover:border-green-400/50', shadow: 'hover:shadow-[0_0_20px_rgba(74,222,128,0.3)]', glow: 'from-green-900/60', textGrad: 'from-green-200 to-green-100', ring: 'group-hover:ring-green-400/30' }
+  ];
+
+  return `
+    <div class="flex flex-col items-center justify-center min-h-screen p-4 py-8 animate-slide-up relative z-10">
+      <div class="text-center mb-8 md:mb-12 w-full animate-fade-in-down">
+        <h2 class="text-3xl md:text-4xl font-bold text-yellow-400 drop-shadow-lg mb-2" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+          Xin chào ${escapeHtml(state.userName)},
+        </h2>
+        <div class="h-0.5 w-24 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mb-4"></div>
+        <p class="text-lg md:text-xl font-medium text-yellow-100/90 italic">Bạn muốn xin quẻ về điều gì?</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:gap-8 w-full max-w-lg md:max-w-4xl px-2">
+        ${cats.map(c => `
+          <button data-cat="${c.key}" class="cat-card group relative overflow-hidden rounded-2xl aspect-square md:aspect-[4/3] bg-gradient-to-br from-[#5a0a0a] to-[#3d0505] border border-red-800/50 ${c.borderHover} transition-all duration-300 transform hover:-translate-y-2 ${c.shadow} active:scale-95 flex flex-col items-center justify-center">
+            <div class="absolute inset-0 bg-gradient-to-t ${c.glow} via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10 mb-3 md:mb-5 p-4 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors backdrop-blur-sm ring-1 ring-white/10 ${c.ring}">
+              <span class="text-5xl md:text-7xl block filter drop-shadow-lg transform transition-transform duration-500 ${c.animClass}">${c.icon}</span>
+            </div>
+            <span class="relative z-10 text-xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${c.textGrad} group-hover:text-white transition-colors">${c.label}</span>
+          </button>
+        `).join('')}
+      </div>
+      <button id="backBtn" class="mt-10 py-2 px-6 text-yellow-500/80 hover:text-yellow-400 hover:underline text-sm md:text-base transition-colors font-medium tracking-wide">Quay lại</button>
+    </div>`;
+}
+
+function bindCategory() {
+  document.querySelectorAll('[data-cat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.category = btn.dataset.cat;
+      navigate('drawing');
+    });
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    stopBackgroundMusic();
+    state.musicStarted = false;
+    navigate('welcome');
+  });
+}
+
+function renderDrawing() {
+  const sticks = Array.from({ length: 30 }, (_, i) => ({
+    angle: i * (360 / 30),
+    tilt: 9 + Math.random() * 6,
+    delay: Math.random() * 2.5
+  }));
+  const labels = ['Vạn', 'Sự', 'Như', 'Ý', 'Bình', 'An'];
+
+  return `
+    <div class="flex flex-col items-center justify-between min-h-screen w-full overflow-hidden relative py-8 pb-24">
+      <div id="drawHeader" class="w-full text-center z-10 transition-opacity duration-500 px-4 mt-2 flex flex-col items-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-1 drop-shadow-md font-serif tracking-wide">Thành Tâm Xin Quẻ</h2>
+        <div class="flex items-center gap-2 justify-center">
+          <span class="text-yellow-100 text-sm md:text-lg opacity-90 font-medium">Năm Bính Ngọ 2026</span>
+        </div>
+      </div>
+      <div class="flex-grow flex items-center justify-center w-full relative">
+        <div class="absolute z-20 pointer-events-none animate-bounce-slow" style="right: 50%; transform: translateX(150px) translateY(50px); margin-right: -150px;">
+          <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Horse%20Face.png" alt="Chibi Horse" class="w-24 h-24 md:w-32 md:h-32 drop-shadow-2xl filter brightness-110" />
+        </div>
+        <div class="scene">
+          <div id="cup3d" class="container-3d">
+            <div class="stick-group">
+              ${sticks.map(s => `
+                <div class="stick-wrapper" style="transform: rotateZ(${s.angle}deg)">
+                  <div class="stick-body animate-breathe" style="animation-delay: -${s.delay}s; transform: rotateX(${s.tilt}deg)">
+                    <div class="stick-tip"></div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            ${labels.map(l => `
+              <div class="cup-face">
+                <div class="cup-face-pattern"></div>
+                <div class="cup-decoration">⚜️</div>
+                <div class="cup-label">${l}</div>
+                <div class="cup-decoration mt-2">⚜️</div>
+              </div>
+            `).join('')}
+            <div class="cup-bottom"></div>
+          </div>
+        </div>
+      </div>
+      <div id="fallingArea"></div>
+      <div id="drawControls" class="z-20 w-full flex justify-center mb-8">
+        <button id="shakeBtn" class="group relative px-8 py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold text-xl rounded-full shadow-lg shadow-pink-500/40 hover:scale-105 transition-transform active:scale-95 border-4 border-white/20 flex items-center justify-center gap-3 overflow-hidden font-quicksand">
+          <span class="text-3xl animate-hand-shake filter drop-shadow-sm">👋</span>
+          <span class="drop-shadow-sm tracking-wide">Lắc Quẻ</span>
+          <div class="absolute inset-0 bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-[-150%] transition-transform duration-700"></div>
+        </button>
+      </div>
+    </div>`;
+}
+
+function bindDrawing() {
+  const shakeBtn = document.getElementById('shakeBtn');
+  const cup = document.getElementById('cup3d');
+  const header = document.getElementById('drawHeader');
+  const controls = document.getElementById('drawControls');
+  const fallingArea = document.getElementById('fallingArea');
+  let shaking = false;
+
+  function doShake() {
+    if (shaking) return;
+    shaking = true;
+    cup.classList.add('shaking');
+    header.classList.add('opacity-0');
+    controls.innerHTML = `
+      <div class="px-6 py-2 bg-black/40 rounded-full border border-pink-400/50 backdrop-blur-md shadow-xl animate-pulse">
+        <div class="text-pink-200 text-lg font-bold flex items-center gap-2 font-quicksand">
+          <span class="animate-spin text-xl">✨</span> Đang cầu nguyện...
+        </div>
+      </div>`;
+
+    // Draw fortune
+    const list = FORTUNES[state.category];
+    state.fortune = list[Math.floor(Math.random() * list.length)] || FORTUNES.love[0];
+
+    setTimeout(() => {
+      cup.classList.remove('shaking');
+      // Show falling stick
+      fallingArea.innerHTML = `
+        <div class="falling-stick">
+          <div class="absolute top-0 w-full h-12 bg-gradient-to-b from-red-600 to-red-800 rounded-t-lg border-b border-black/10"></div>
+          <div class="absolute bottom-12 text-xs font-bold text-red-900 rotate-90 transform origin-center whitespace-nowrap scale-125">Quẻ ${state.fortune.id}</div>
+        </div>`;
+      controls.innerHTML = '';
+      setTimeout(() => navigate('result'), 1500);
+    }, 2000);
+  }
+
+  shakeBtn.addEventListener('click', doShake);
+
+  // Device motion for mobile shake
+  if ('ondevicemotion' in window) {
+    const motionHandler = (event) => {
+      if (shaking) return;
+      const acc = event.accelerationIncludingGravity;
+      if (!acc) return;
+      if ((acc.x && Math.abs(acc.x) > 20) || (acc.y && Math.abs(acc.y) > 20)) {
+        doShake();
+      }
+    };
+    window.addEventListener('devicemotion', motionHandler, false);
+    // Cleanup on next render
+    window._cleanupDrawing = () => window.removeEventListener('devicemotion', motionHandler);
+  }
+}
+
+function renderResult() {
+  const f = state.fortune;
+  if (!f) return '<div class="min-h-screen flex items-center justify-center text-yellow-400 text-xl">Không có dữ liệu quẻ</div>';
+
+  return `
+    <div class="min-h-screen py-8 flex items-center justify-center p-4 animate-fade-in-slow">
+      <div class="w-full max-w-2xl glass-panel rounded-2xl border-2 border-yellow-500/50 relative overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+        <div class="bg-gradient-to-r from-red-800 to-red-900 p-4 md:p-6 text-center border-b border-yellow-500/30 relative flex-shrink-0">
+          <div class="absolute top-2 left-2 text-yellow-500/20 text-3xl md:text-4xl">🌸</div>
+          <div class="absolute top-2 right-2 text-yellow-500/20 text-3xl md:text-4xl">🌸</div>
+          <h3 class="text-yellow-200 uppercase tracking-widest text-xs md:text-sm mb-1">Kết Quả Gieo Quẻ</h3>
+          <h1 class="text-3xl md:text-5xl font-bold text-yellow-400 mb-2">Quẻ Số ${f.id}</h1>
+          <span class="inline-block px-3 py-0.5 md:px-4 md:py-1 rounded-full border border-yellow-400 text-yellow-300 bg-red-950/50 text-sm md:text-base font-bold shadow-sm">${escapeHtml(f.level)}</span>
+        </div>
+        <div class="flex-grow overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar">
+          <div class="text-center space-y-2 py-4 border-t border-b border-yellow-500/20 relative shrink-0">
+            <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"><span class="text-6xl md:text-8xl">🧧</span></div>
+            ${f.poem.map(line => `<p class="text-lg md:text-2xl font-serif text-yellow-100 leading-relaxed drop-shadow-sm">${escapeHtml(line)}</p>`).join('')}
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div class="bg-red-900/40 p-4 rounded-xl border border-red-800 shadow-inner">
+              <h4 class="text-yellow-400 font-bold mb-2 flex items-center gap-2 text-lg"><span>📖</span> Giải Nghĩa</h4>
+              <p class="text-gray-100 text-sm md:text-base leading-relaxed text-justify">${escapeHtml(f.interpretation)}</p>
+            </div>
+            <div class="bg-red-900/40 p-4 rounded-xl border border-red-800 shadow-inner">
+              <h4 class="text-yellow-400 font-bold mb-2 flex items-center gap-2 text-lg"><span>💡</span> Lời Khuyên</h4>
+              <p class="text-gray-100 text-sm md:text-base leading-relaxed text-justify">${escapeHtml(f.advice)}</p>
+            </div>
+          </div>
+          <div class="flex justify-around items-center bg-black/20 p-4 rounded-xl border border-white/5">
+            <div class="text-center">
+              <span class="block text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">Màu May Mắn</span>
+              <div class="flex items-center gap-2 justify-center mt-2">
+                <div class="w-8 h-8 rounded-full border-2 border-white/20 shadow-lg ring-2 ring-white/5" style="background-color: ${f.luckyColor}"></div>
+              </div>
+            </div>
+            <div class="w-px h-10 bg-white/10"></div>
+            <div class="text-center">
+              <span class="block text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">Số May Mắn</span>
+              <span class="text-3xl md:text-4xl font-bold text-yellow-400 mt-1 block">${f.luckyNumber}</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 md:p-6 bg-red-950/30 border-t border-yellow-500/10 flex-shrink-0">
+          <div class="flex flex-col md:flex-row gap-3">
+            <button id="resetBtn" class="flex-1 py-3 border-2 border-yellow-500 text-yellow-400 rounded-lg hover:bg-yellow-500 hover:text-red-900 font-bold transition-colors text-sm md:text-base uppercase tracking-wide">Gieo Quẻ Khác</button>
+            <button id="homeBtn" class="flex-1 py-3 bg-red-800 text-red-100 rounded-lg hover:bg-red-700 font-bold transition-colors text-sm md:text-base uppercase tracking-wide shadow-lg">Về Trang Chủ</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function bindResult() {
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    state.fortune = null;
+    state.category = null;
+    navigate('category');
+  });
+  document.getElementById('homeBtn').addEventListener('click', () => {
+    stopBackgroundMusic();
+    state.musicStarted = false;
+    state.fortune = null;
+    state.category = null;
+    navigate('welcome');
+  });
+}
+
+// ========== MAIN RENDER ==========
+function render() {
+  // Cleanup previous screen
+  if (window._cleanupDrawing) {
+    window._cleanupDrawing();
+    window._cleanupDrawing = null;
+  }
+
+  const app = document.getElementById('app');
+  switch (state.screen) {
+    case 'welcome':
+      app.innerHTML = renderWelcome();
+      bindWelcome();
+      break;
+    case 'category':
+      app.innerHTML = renderCategory();
+      bindCategory();
+      break;
+    case 'drawing':
+      app.innerHTML = renderDrawing();
+      bindDrawing();
+      break;
+    case 'result':
+      app.innerHTML = renderResult();
+      bindResult();
+      break;
+  }
+}
+
+// Start the app
+render();
+</script>
 </body>
 </html>
