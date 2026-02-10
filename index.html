@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gieo Quẻ Tân Xuân</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #C41E3A;
+            --golden: #FFD700;
+            --dark-gold: #DAA520;
+        }
+        
+        body {
+            font-family: 'Noto Serif', serif;
+            background-color: var(--primary-red);
+            overflow-x: hidden;
+            color: #fff;
+            overscroll-behavior: none;
+        }
+
+        /* Ambient Background Pattern */
+        .bg-pattern {
+            background-image: radial-gradient(circle at 50% 50%, #8B0000 0%, #C41E3A 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .plum-blossom {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #FFB7C5;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 183, 197, 0.6);
+            animation: float 10s infinite linear;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 3D Scene Styles */
+        .scene {
+            perspective: 1000px;
+            width: 100%;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .container-3d {
+            position: relative;
+            width: 160px;
+            height: 170px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        /* The Cup Faces - Red Envelope Style */
+        .cup-face {
+            position: absolute;
+            width: 90px; /* Slightly narrower to look like attached cards */
+            height: 170px;
+            /* Red Envelope Gradient */
+            background: linear-gradient(180deg, #D91E18 0%, #960018 100%);
+            border: 2px solid #FFD700;
+            border-radius: 8px; /* Rounded corners for card look */
+            box-sizing: border-box;
+            left: 35px; /* Adjust centering */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            /* Shadow to create "attached" depth */
+            box-shadow: 0 0 5px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3);
+            backface-visibility: hidden;
+        }
+
+        /* Decorative Pattern Overlay on Cup Face */
+        .cup-face-pattern {
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 1px dashed rgba(255, 215, 0, 0.4);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+
+        .cup-label {
+            background: #FFD700;
+            color: #8B0000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 2px solid #B8860B;
+            z-index: 2;
+        }
+        
+        .cup-decoration {
+            color: #FFD700;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        /* Positioning the 6 faces */
+        /* Increased translateZ slightly to accommodate "attached" look without clipping */
+        .cup-face:nth-child(1) { transform: rotateY(0deg) translateZ(82px); }
+        .cup-face:nth-child(2) { transform: rotateY(60deg) translateZ(82px); }
+        .cup-face:nth-child(3) { transform: rotateY(120deg) translateZ(82px); }
+        .cup-face:nth-child(4) { transform: rotateY(180deg) translateZ(82px); }
+        .cup-face:nth-child(5) { transform: rotateY(240deg) translateZ(82px); }
+        .cup-face:nth-child(6) { transform: rotateY(300deg) translateZ(82px); }
+
+        .cup-bottom {
+            position: absolute;
+            width: 160px;
+            height: 140px;
+            background: #5c0b0b;
+            bottom: 0;
+            left: 0;
+            transform: rotateX(90deg) translateZ(-110px);
+            border-radius: 40%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 2px solid #8B0000;
+        }
+
+        /* --- LIVING STICK ANIMATION --- */
+        .stick-group {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform-style: preserve-3d;
+            transform: translateY(-20px);
+        }
+
+        .stick-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            transform-style: preserve-3d;
+        }
+
+        /* Longer Sticks */
+        .stick-body {
+            position: absolute;
+            bottom: -60px;
+            left: -10px;
+            width: 20px;
+            height: 280px; /* Increased from 190px */
+            /* Bamboo texture gradient */
+            background: linear-gradient(90deg, #F4A460 0%, #FFE4B5 40%, #F4A460 100%);
+            transform-origin: bottom center;
+            border-radius: 12px;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+            border: 1px solid #CD853F;
+        }
+        
+        .stick-tip {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 55px; /* Slightly longer tip */
+            background: linear-gradient(to bottom, #D32F2F, #8B0000);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom: 2px solid rgba(0,0,0,0.15);
+        }
+
+        /* Vertical Movement Animation ("In and Out") */
+        @keyframes stick-move-vertical {
+            0% { transform: rotateX(8deg) translateY(0); }
+            50% { transform: rotateX(10deg) translateY(-35px); } /* Move UP higher */
+            100% { transform: rotateX(8deg) translateY(0); }
+        }
+
+        .stick-body.animate-breathe {
+            animation: stick-move-vertical 3s ease-in-out infinite;
+        }
+
+        .shaking .stick-body {
+            animation: none;
+        }
+        
+        .shaking {
+            animation: shake-hard 0.6s cubic-bezier(.36,.07,.19,.97) infinite both;
+        }
+
+        @keyframes shake-hard {
+            0% { transform: rotate3d(0, 0, 1, 0deg) translateY(0); }
+            25% { transform: rotate3d(0, 0, 1, 5deg) translateY(-10px); }
+            50% { transform: rotate3d(0, 0, 1, -5deg) translateY(10px); }
+            75% { transform: rotate3d(0, 0, 1, 5deg) translateY(-10px); }
+            100% { transform: rotate3d(0, 0, 1, 0deg) translateY(0); }
+        }
+
+        @keyframes stick-fall {
+            0% { transform: translateY(0) rotateZ(0) rotateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(120vh) rotateZ(720deg) rotateX(180deg); opacity: 1; }
+        }
+        
+        .falling-stick {
+            position: absolute;
+            width: 24px;
+            height: 290px; /* Longer falling stick */
+            background: linear-gradient(90deg, #F4A460, #FFDEAD, #F4A460);
+            border: 2px solid #8B4513;
+            left: 50%;
+            top: 10%; /* Start higher */
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            animation: stick-fall 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+        
+        .glass-panel {
+            background: rgba(139, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: #DAA520; border-radius: 4px; }
+    </style>
+    <!-- ... scripts ... -->
+<script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/compiler": "https://esm.sh/@angular/compiler@^21.1.3?external=rxjs",
+    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.1.3?external=rxjs",
+    "@angular/core": "https://esm.sh/@angular/core@^21.1.3?external=rxjs",
+    "@angular/common": "https://esm.sh/@angular/common@^21.1.3?external=rxjs",
+    "@angular/forms": "https://esm.sh/@angular/forms@^21.1.3?external=rxjs"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="plum-blossom" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="plum-blossom" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="plum-blossom" style="left: 70%; animation-delay: 4s;"></div>
+    <div class="plum-blossom" style="left: 50%; animation-delay: 6s;"></div>
+    <div class="plum-blossom" style="left: 90%; animation-delay: 1s;"></div>
+    
+    <app-root></app-root>
+</body>
+</html>
